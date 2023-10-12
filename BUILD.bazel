@@ -1,0 +1,16 @@
+load("@rules_python//python:pip.bzl", "compile_pip_requirements")
+
+compile_pip_requirements(
+    name = "requirements",
+    extra_args = [
+        # prevent pip-compile it from printing the content of the file in stdout
+        "--quiet",
+        # legacy pip-tools resolver will be removed in pip-tools 7.0.0, 'backtracking' will be standard then
+        "--resolver=backtracking",
+        # Opt in to new default behavior
+        "--strip-extras",
+    ],
+    requirements_in = "requirements.txt",
+    requirements_txt = "requirements_lock.txt",
+)
+
